@@ -45,7 +45,7 @@ func TestGetNonExistentProduct(t *testing.T) {
 
 	req, _ := http.NewRequest("GET", "/product/11", nil)
 	response := executeRequest(req)
-	checkResponseCode(t, http.StatusOK, response.Code)
+	checkResponseCode(t, http.StatusNotFound, response.Code)
 
 	var m map[string]string
 	json.Unmarshal(response.Body.Bytes(), &m)
@@ -62,7 +62,7 @@ func TestCreateProduct(t *testing.T) {
 	req.Header.Set("Content-Type", "application/json")
 
 	response := executeRequest(req)
-	checkResponseCode(t, http.StatusOK, response.Code)
+	checkResponseCode(t, http.StatusCreated, response.Code)
 
 	var m map[string]interface{}
 	json.Unmarshal(response.Body.Bytes(), &m)
